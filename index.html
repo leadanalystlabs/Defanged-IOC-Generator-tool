@@ -2,23 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Defanged IOC Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Defanged IOC Generator | Lead Analyst Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js"></script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>🛡️ Defanged IOC Generator</h1>
-    <p class="sub">Paste raw threat-report text below. IPs, domains, URLs, and hashes will be extracted and defanged for safe sharing.</p>
 
-    <textarea id="inputText" placeholder="Paste raw text here... e.g. Malicious domain: evil.example.com, IP: 192.168.1.1, URL: http://evil.example.com/payload.exe"></textarea>
+<nav>
+  <div class="wrapper">
+    <a href="https://leadanalystlabs.com/" class="nav-logo">Lead<span>_</span>Analyst<span>_</span>Labs</a>
+    <ul class="nav-links">
+      <li><a href="https://leadanalystlabs.com/">Home</a></li>
+      <li><a href="https://leadanalystlabs.com/blog.html">Blog</a></li>
+      <li><a href="https://leadanalystlabs.com/resources.html">Resources</a></li>
+      <li><a href="https://kevin.leadanalystlabs.com" target="_blank" rel="noopener noreferrer">Kevin (PCAP Analyzer)</a></li>
+    </ul>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+      <span id="themeIcon">☀</span>
+    </button>
+  </div>
+</nav>
 
-    <div class="controls">
-      <button id="generateBtn">Generate Defanged IOCs</button>
-      <button id="clearBtn" class="secondary">Clear</button>
-      <button id="copyAllBtn" class="secondary">Copy All Defanged</button>
-      <span class="count" id="countLabel"></span>
+<main>
+  <section class="hero-container wrapper">
+    <div class="terminal-box">
+      <h1>> DEFANGED_IOC_<span class="highlight">GENERATOR</span></h1>
+      <p class="bio">
+        Extract and defang Indicators of Compromise from raw threat data.<br>
+        <span class="focus-area">[ CLIENT-SIDE ONLY &middot; NOTHING LEAVES YOUR BROWSER ]</span>
+      </p>
+
+      <textarea id="inputText" placeholder="// Paste raw text here...&#10;// e.g. Malicious domain: evil.example.com&#10;// IP: 192.168.1.1&#10;// URL: http://evil.example.com/payload.exe"></textarea>
+
+      <div class="controls">
+        <button id="generateBtn" class="btn-primary">Generate Defanged IOCs</button>
+        <button id="clearBtn" class="btn-secondary">Clear</button>
+        <button id="copyAllBtn" class="btn-secondary">Copy All</button>
+        <span class="count" id="countLabel"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrapper">
+    <div class="section-header">
+      <span style="font-size: 1.2rem;">🛡</span>
+      <h2 class="section-title">Extracted Indicators</h2>
+      <div class="section-line"></div>
     </div>
 
     <div class="table-wrap">
@@ -27,14 +58,25 @@
           <tr><th>Type</th><th>Original</th><th>Defanged</th><th></th></tr>
         </thead>
         <tbody id="iocTableBody">
-          <tr><td colspan="4" class="empty">No IOCs generated yet.</td></tr>
+          <tr><td colspan="4" class="empty">// awaiting input _</td></tr>
         </tbody>
       </table>
     </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrapper">
+    <span class="footer-logo">Lead Analyst Labs</span>
+    Maintained by Kyle Ford · Cyber Threat Intelligence Analyst<br>
+    <a href="https://www.linkedin.com/company/lead-analyst-labs" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+    <a href="https://github.com/leadanalystlabs" target="_blank">GitHub</a> &nbsp;|&nbsp;
+    <a href="https://leadanalystlabs.com" target="_blank">leadanalystlabs.com</a>
   </div>
+</footer>
 
-  <div class="toast" id="toast">Copied!</div>
+<div class="toast" id="toast">Copied!</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
