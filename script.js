@@ -5,14 +5,14 @@
   const STORAGE_KEY = 'lal-ioc-theme';
 
   function applyTheme(theme){
-    if (theme === 'light'){
-      root.setAttribute('data-theme', 'light');
-      themeIcon.textContent = '☾';
-    } else {
-      root.removeAttribute('data-theme');
-      themeIcon.textContent = '☀';
-    }
+  if (theme === 'light'){
+    root.setAttribute('data-theme', 'light');
+    if (themeIcon) themeIcon.textContent = '☾';
+  } else {
+    root.removeAttribute('data-theme');
+    if (themeIcon) themeIcon.textContent = '☀';
   }
+}
 
   function getStoredTheme(){
     try { return localStorage.getItem(STORAGE_KEY); } catch(e){ return null; }
