@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Defanged IOC Generator</title>
-  <!-- DOMPurify CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js"></script>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Defanged IOC Generator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js"></script>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Defanged IOC Generator</h1>
-    <textarea id="inputText" placeholder="Paste raw text here..."></textarea>
-    <button id="generateBtn">Generate Defanged IOCs</button>
-    <table id="iocTable">
-      <thead>
-        <tr><th>Type</th><th>Original Value</th><th>Defanged Value</th></tr>
-      </thead>
-      <tbody id="iocTableBody"></tbody>
-    </table>
+    <h1>🛡️ Defanged IOC Generator</h1>
+    <p class="sub">Paste raw threat-report text below. IPs, domains, URLs, and hashes will be extracted and defanged for safe sharing.</p>
+
+    <textarea id="inputText" placeholder="Paste raw text here... e.g. Malicious domain: evil.example.com, IP: 192.168.1.1, URL: http://evil.example.com/payload.exe"></textarea>
+
+    <div class="controls">
+      <button id="generateBtn">Generate Defanged IOCs</button>
+      <button id="clearBtn" class="secondary">Clear</button>
+      <button id="copyAllBtn" class="secondary">Copy All Defanged</button>
+      <span class="count" id="countLabel"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table id="iocTable">
+        <thead>
+          <tr><th>Type</th><th>Original</th><th>Defanged</th><th></th></tr>
+        </thead>
+        <tbody id="iocTableBody">
+          <tr><td colspan="4" class="empty">No IOCs generated yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+
+  <div class="toast" id="toast">Copied!</div>
+
   <script src="script.js"></script>
 </body>
 </html>
