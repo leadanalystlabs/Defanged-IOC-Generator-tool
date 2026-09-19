@@ -1,24 +1,25 @@
 (function(){
-  /* ---------- Theme toggle ---------- */
   const root = document.documentElement;
   const themeIcon = document.getElementById('themeIcon');
+  const themeToggle = document.getElementById('themeToggle');
   const STORAGE_KEY = 'lal-ioc-theme';
 
   function applyTheme(theme){
-  if (theme === 'light'){
-    root.setAttribute('data-theme', 'light');
-    if (themeIcon) themeIcon.textContent = '☾';
-  } else {
-    root.removeAttribute('data-theme');
-    if (themeIcon) themeIcon.textContent = '☀';
+    if (theme === 'light'){
+      root.setAttribute('data-theme', 'light');
+      if (themeIcon) themeIcon.textContent = '☾';
+    } else {
+      root.removeAttribute('data-theme');
+      if (themeIcon) themeIcon.textContent = '☀';
+    }
   }
-}
 
   function getStoredTheme(){
-    try { return localStorage.getItem(STORAGE_KEY); } catch(e){ return null; }
+    try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
   }
+
   function storeTheme(theme){
-    try { localStorage.setItem(STORAGE_KEY, theme); } catch(e){ /* ignore */ }
+    try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) { /* ignore */ }
   }
 
   const stored = getStoredTheme();
@@ -28,12 +29,14 @@
     applyTheme('dark'); // site default
   }
 
-  document.getElementById('themeToggle').addEventListener('click', () => {
-    const isLight = root.getAttribute('data-theme') === 'light';
-    const next = isLight ? 'dark' : 'light';
-    applyTheme(next);
-    storeTheme(next);
-  });
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isLight = root.getAttribute('data-theme') === 'light';
+      const next = isLight ? 'dark' : 'light';
+      applyTheme(next);
+      storeTheme(next);
+    });
+  }
 
   /* ---------- IOC extraction ---------- */
   const iocPatterns = [
@@ -66,9 +69,11 @@
         const end = start + match[0].length;
         if (overlaps(start, end)) continue;
         claimedRanges.push({ start, end });
+
         const original = match[0];
         const defanged = type === 'hash' ? original : defangString(original);
         results.push({ type, original, defanged });
+
         if (re.lastIndex === match.index) re.lastIndex++;
       }
     }
@@ -122,10 +127,11 @@
         document.execCommand('copy');
         document.body.removeChild(ta);
         showToast('Copied!');
-      } catch(e){
+      } catch (e) {
         showToast('Copy failed');
       }
     };
+
     if (navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(text).then(done).catch(fail);
     } else {
@@ -134,6 +140,7 @@
   }
 
   let toastTimer = null;
+
   function showToast(msg){
     const toast = document.getElementById('toast');
     toast.textContent = msg;
@@ -150,6 +157,7 @@
       showToast('Paste some text first');
       return;
     }
+
     const sanitized = (window.DOMPurify ? DOMPurify.sanitize(raw, { ALLOWED_TAGS: [] }) : raw);
     currentIOCs = extractDefangedIOCs(sanitized);
     renderIOCs(currentIOCs);
