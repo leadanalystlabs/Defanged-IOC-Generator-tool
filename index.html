@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Defanged IOC Generator</title>
+  <!-- DOMPurify CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Defanged IOC Generator</h1>
+    <textarea id="inputText" placeholder="Paste raw text here..."></textarea>
+    <button id="generateBtn">Generate Defanged IOCs</button>
+    <table id="iocTable">
+      <thead>
+        <tr><th>Type</th><th>Original Value</th><th>Defanged Value</th></tr>
+      </thead>
+      <tbody id="iocTableBody"></tbody>
+    </table>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
