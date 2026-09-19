@@ -1,4 +1,41 @@
 (function(){
+  /* ---------- Theme toggle ---------- */
+  const root = document.documentElement;
+  const themeIcon = document.getElementById('themeIcon');
+  const STORAGE_KEY = 'lal-ioc-theme';
+
+  function applyTheme(theme){
+    if (theme === 'light'){
+      root.setAttribute('data-theme', 'light');
+      themeIcon.textContent = '☾';
+    } else {
+      root.removeAttribute('data-theme');
+      themeIcon.textContent = '☀';
+    }
+  }
+
+  function getStoredTheme(){
+    try { return localStorage.getItem(STORAGE_KEY); } catch(e){ return null; }
+  }
+  function storeTheme(theme){
+    try { localStorage.setItem(STORAGE_KEY, theme); } catch(e){ /* ignore */ }
+  }
+
+  const stored = getStoredTheme();
+  if (stored){
+    applyTheme(stored);
+  } else {
+    applyTheme('dark'); // site default
+  }
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const isLight = root.getAttribute('data-theme') === 'light';
+    const next = isLight ? 'dark' : 'light';
+    applyTheme(next);
+    storeTheme(next);
+  });
+
+  /* ---------- IOC extraction ---------- */
   const iocPatterns = [
     { type: 'url',    re: /\bhttps?:\/\/[^\s"'<>]+/g },
     { type: 'ipv4',   re: /\b(?:\d{1,3}\.){3}\d{1,3}\b/g },
@@ -49,7 +86,7 @@
     const countLabel = document.getElementById('countLabel');
 
     if (iocs.length === 0){
-      tbody.innerHTML = '<tr><td colspan="4" class="empty">No IOCs found.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="4" class="empty">// no IOCs found _</td></tr>';
       countLabel.textContent = '';
       return;
     }
